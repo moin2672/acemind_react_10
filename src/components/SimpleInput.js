@@ -7,7 +7,6 @@ const SimpleInput = (props) => {
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 
   useEffect(() => {
-    console.log("enteredNameIsValid",enteredNameIsValid)
     if (enteredNameIsValid) {
       console.log('Name Input is valid!');
     }
@@ -15,6 +14,16 @@ const SimpleInput = (props) => {
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
+  };
+
+  const nameInputBlurHandler = event => {
+    setEnteredNameTouched(true);
+      console.log("blur=",enteredName)
+    if (enteredName.trim() === '') {
+      setEnteredNameIsValid(false);
+      return;
+    }
+    setEnteredNameIsValid(true);
   };
 
   const formSubmissionHandler = (event) => {
@@ -53,6 +62,7 @@ const SimpleInput = (props) => {
           type='text'
           id='name'
           onChange={nameInputChangeHandler}
+          onBlur={nameInputBlurHandler}
           value={enteredName}
         />
         {nameInputIsInvalid && (
